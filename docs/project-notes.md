@@ -14,7 +14,7 @@ The project uses:
 
 - .NET 8.0
 - C# 12
-- Azure OpenAI SDK
+- AutoGen.NET
 - Neo4j for graph database
 - Semantic Kernel
 

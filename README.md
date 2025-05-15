@@ -38,7 +38,7 @@ The architecture consists of three main components:
 This project will leverage the .NET ecosystem to implement the multi-agent architecture:
 
 - **.NET 8**: Using the latest .NET platform for high performance and cross-platform capabilities
-- **Azure OpenAI Integration**: Connecting with large language models for agent intelligence
+- **AutoGen.NET**: Providing LLM integration with provider agnosticism
 - **SignalR**: Real-time communication between agents
 - **Neo4j Graph Database**: Storing and retrieving memory and relationships
 - **Semantic Kernel**: Orchestrating agents and managing prompts

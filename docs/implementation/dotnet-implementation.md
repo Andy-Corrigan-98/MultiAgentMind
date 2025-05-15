@@ -11,14 +11,31 @@ The MultiAgentMind implementation will leverage the following .NET technologies:
 - **Entity Framework Core**: For structured data persistence
 - **Neo4j Client**: For graph-based memory storage
 - **SignalR**: For real-time agent communication
-- **Azure OpenAI SDK**: For LLM integration
+- **AutoGen.NET**: For LLM integration with provider agnosticism
 - **Semantic Kernel**: For agent orchestration and prompt management
+
+## AutoGen.NET Integration
+
+AutoGen.NET will serve as the foundation for our multi-agent system, providing several key advantages:
+
+- **LLM Provider Agnosticism**: Ability to connect to multiple LLM providers (OpenAI, Azure, Anthropic, etc.)
+- **Agent Framework**: Built-in tools for defining and managing multiple agents
+- **Conversation Management**: Structured conversation flows between agents
+- **Message Routing**: Established patterns for directing messages between agents
+- **State Management**: Tools for maintaining agent state between interactions
+
+The base `IAgent` interface will be implemented using AutoGen.NET's agent abstractions, allowing us to:
+
+1. Define custom agent behaviors while leveraging AutoGen's conversation management
+2. Switch LLM providers without changing agent implementations
+3. Use AutoGen's built-in tools for message passing between agents
+4. Extend with our own emotion and neurocognitive models
 
 ## Agent Architecture
 
 ### Base Agent Framework
 
-Each agent will be implemented using a common interface pattern:
+Each agent will be implemented using a common interface pattern that extends AutoGen.NET's agent capabilities:
 
 ```csharp
 public interface IAgent
@@ -171,7 +188,7 @@ public class ContextualInfluenceManager : IInfluenceManager
 
 ## API Layer
 
-The system will expose a REST API for interaction:
+The system will expose a REST API for interaction, while internally using AutoGen.NET for agent coordination:
 
 ```csharp
 [ApiController]
@@ -179,12 +196,31 @@ The system will expose a REST API for interaction:
 public class ConversationController : ControllerBase
 {
     private readonly WraparoundAgent _agent;
+    private readonly AutoGenGroupChat _groupChat;
     
     [HttpPost]
     public async Task<ActionResult<ConversationResponse>> PostAsync(ConversationRequest request)
     {
+        // Initialize AutoGen group chat with specialized agents
+        if (!_groupChat.IsInitialized)
+        {
+            await InitializeGroupChatAsync();
+        }
+        
+        // Process through the wraparound agent which coordinates the AutoGen group chat
         var response = await _agent.GenerateResponseAsync(request.Input);
         return Ok(new ConversationResponse { Message = response });
+    }
+    
+    private async Task InitializeGroupChatAsync()
+    {
+        // Set up AutoGen agents and configure their capabilities and roles
+        await _groupChat.InitializeAsync(_internalAgents, new GroupChatConfig
+        {
+            TerminationCriteria = TerminationCriteria.ConsensusReached,
+            MaxRounds = 10,
+            AgentSelectionStrategy = AgentSelectionStrategy.WeightedPriority
+        });
     }
 }
 ```
