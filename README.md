@@ -33,15 +33,16 @@ The architecture consists of three main components:
 - **Personality Framework**: Consistent traits, communication style, and behavioral tendencies that emerge from the multi-agent system
 - **Memory Integration**: Mechanisms for maintaining consistent identity and experience recall across interactions
 
-## Implementation with AutoGen
+## Implementation with .NET
 
-This project will leverage Microsoft's AutoGen framework to implement the multi-agent architecture:
+This project will leverage the .NET ecosystem to implement the multi-agent architecture:
 
-- **Agent Definition**: Creating specialized agents with distinct roles, capabilities, and decision-making patterns
-- **Conversation Flows**: Establishing protocols for how messages flow between agents
-- **ConversableAgent Customization**: Extending AutoGen's ConversableAgent with specialized capabilities for emotional reasoning
-- **GroupChat Integration**: Using GroupChat for coordinating multiple agents in resolving queries
-- **Custom Termination Criteria**: Implementing specialized criteria for when agent deliberations should conclude
+- **.NET 8**: Using the latest .NET platform for high performance and cross-platform capabilities
+- **Azure OpenAI Integration**: Connecting with large language models for agent intelligence
+- **SignalR**: Real-time communication between agents
+- **Neo4j Graph Database**: Storing and retrieving memory and relationships
+- **Semantic Kernel**: Orchestrating agents and managing prompts
+- **Entity Framework Core**: Structured data persistence
 
 ## Development Roadmap
 
@@ -70,16 +71,9 @@ This project will leverage Microsoft's AutoGen framework to implement the multi-
    - Metacognitive capabilities
    - Self-reflection and system improvement
 
-## Getting Involved
+## Personal Research Project
 
-This project is in early development. Contributions, ideas, and collaborations are welcome in these areas:
-
-- Agent architecture design
-- Emotional reasoning models
-- Memory system development
-- AutoGen implementation strategies
-- Testing frameworks for multi-agent systems
-- Personality modeling approaches
+This is a personal research project exploring cognitive architectures for AI systems. The project is currently in early experimental stages and is being developed as a solo endeavor.
 
 ## License
 
